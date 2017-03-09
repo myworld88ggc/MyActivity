@@ -1,0 +1,60 @@
+import static org.junit.Assert.*;
+
+import java.io.Console;
+
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngineConfiguration;
+import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import junit.framework.Assert;
+
+public class HelloWorldTest {
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+	
+	
+	
+	@Test
+	public void test() {
+		//fail("Not yet implemented");
+		//创建流程引擎
+		ProcessEngine processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().buildProcessEngine();
+		
+		//部署流程文件
+		RepositoryService repositoryService=processEngine.getRepositoryService();
+		repositoryService.createDeployment().addClasspathResource("").deploy();
+		
+		//验证已经部署的流程
+		ProcessDefinition processDefinition=repositoryService.createProcessDefinitionQuery().singleResult();
+		
+		System.out.println(processDefinition.getKey());
+		
+		
+		
+		
+		
+		//assertEquals(1, 1);
+	}
+
+}

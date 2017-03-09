@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.mf.com/bpm/pmp">
+  <collaboration id="Collaboration">
+    <participant id="pool1" name="开工报告" processRef="StartReport"></participant>
+  </collaboration>
+  <process id="StartReport" name="开工报告" isExecutable="true">
+    <laneSet id="laneSet_StartReport">
+      <lane id="lane1" name="工程项目经理">
+        <flowNodeRef>startevent1</flowNodeRef>
+        <flowNodeRef>ProjectManagerUserTask</flowNodeRef>
+      </lane>
+      <lane id="lane2" name="区域项目经理">
+        <flowNodeRef>exclusivegateway1</flowNodeRef>
+        <flowNodeRef>endevent1</flowNodeRef>
+        <flowNodeRef>AreaProjectManagerApproveUserTask</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="startevent1" name="Start" activiti:formKey="pmp/v2/startreport/ReportStartForm.html"></startEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="AreaProjectManagerApproveUserTask"></sequenceFlow>
+    <userTask id="AreaProjectManagerApproveUserTask" name="区域经理审批" activiti:assignee="${AreaProjectManger}" activiti:formKey="pmp/v2/startreport/AreaManagerAudit.html"></userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="AreaProjectManagerApproveUserTask" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow3" name="驳回" sourceRef="exclusivegateway1" targetRef="ProjectManagerUserTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ ! ApproveResult.trim().toLowerCase().equals("true") }]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="ProjectManagerUserTask" name="开工报告修改" activiti:assignee="${ProjectManger}" activiti:formKey="pmp/v2/startreport/ProjectManagerUpdate.html"></userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow4" name="同意" sourceRef="exclusivegateway1" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ ApproveResult.trim().toLowerCase().equals("true") }]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="ProjectManagerUserTask" targetRef="AreaProjectManagerApproveUserTask"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>填写开工报告，    发起流程</text>
+    </textAnnotation>
+    <association id="association1" sourceRef="startevent1" targetRef="textannotation1"></association>
+    <textAnnotation id="textannotation2">
+      <text>结束</text>
+    </textAnnotation>
+    <association id="association2" sourceRef="textannotation2" targetRef="endevent1"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
+      <bpmndi:BPMNShape bpmnElement="pool1" id="BPMNShape_pool1">
+        <omgdc:Bounds height="442.0" width="841.0" x="40.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane1" id="BPMNShape_lane1">
+        <omgdc:Bounds height="221.0" width="821.0" x="60.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane2" id="BPMNShape_lane2">
+        <omgdc:Bounds height="221.0" width="821.0" x="60.0" y="241.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="170.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="AreaProjectManagerApproveUserTask" id="BPMNShape_AreaProjectManagerApproveUserTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="260.0" y="303.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="560.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ProjectManagerUserTask" id="BPMNShape_ProjectManagerUserTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="440.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="730.0" y="313.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="151.0" x="220.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="100.0" x="770.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="187.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="187.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="260.0" y="330.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="365.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="330.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="580.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="580.0" y="138.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.0" y="137.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="570.0" y="220.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="600.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="730.0" y="330.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="24.0" x="633.0" y="332.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="440.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="312.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="312.0" y="303.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
+        <omgdi:waypoint x="187.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="187.0" y="46.0"></omgdi:waypoint>
+        <omgdi:waypoint x="220.0" y="55.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
+        <omgdi:waypoint x="770.0" y="415.0"></omgdi:waypoint>
+        <omgdi:waypoint x="747.0" y="403.0"></omgdi:waypoint>
+        <omgdi:waypoint x="747.0" y="348.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
