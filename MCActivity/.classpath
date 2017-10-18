@@ -1,77 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
-	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
-	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
-	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Activiti Designer Extensions"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-converter-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-converter-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-converter-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-layout-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-layout-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-layout-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-model-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-model-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-bpmn-model-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-camel-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-camel-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-camel-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-cdi-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-cdi-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-cdi.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-common-rest-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-common-rest-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-common-rest-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-crystalball-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-crystalball-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-crystalball-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-cxf-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-cxf-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-cxf-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-diagram-rest-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-diagram-rest-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-diagram-rest-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-engine-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-engine-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-engine-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-explorer-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-explorer-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-explorer-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-image-generator-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-image-generator-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-image-generator-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-jmx-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-jmx-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-jmx-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-json-converter-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-json-converter-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-json-converter-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-ldap-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-ldap-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-ldap-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-modeler-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-modeler-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-modeler-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-mule-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-mule-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-mule-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-osgi-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-osgi-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-osgi-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-process-validation-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-process-validation-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-process-validation-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-rest-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-rest-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-rest-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-simple-workflow-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-simple-workflow-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-simple-workflow-5.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-spring-5.22.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-spring-5.22.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/activiti-spring-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-converter-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-converter-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-converter-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-layout-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-layout-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-layout-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-model-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-model-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-bpmn-model-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-camel-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-camel-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-camel-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-cdi.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-cdi-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-cdi-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-common-rest-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-common-rest-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-common-rest-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-crystalball-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-crystalball-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-crystalball-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-cxf-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-cxf-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-cxf-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-diagram-rest-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-diagram-rest-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-diagram-rest-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-engine-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-engine-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-engine-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-explorer-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-explorer-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-explorer-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-image-generator-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-image-generator-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-image-generator-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-jmx-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-jmx-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-jmx-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-json-converter-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-json-converter-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-json-converter-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-ldap-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-ldap-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-ldap-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-modeler-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-modeler-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-modeler-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-mule-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-mule-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-mule-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-osgi-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-osgi-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-osgi-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-process-validation-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-process-validation-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-process-validation-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-rest-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-rest-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-rest-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-simple-workflow-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-simple-workflow-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-simple-workflow-5.22.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-spring-5.22.0.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-spring-5.22.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Develop Tools/activiti-5.22.0/libs/activiti-spring-5.22.0-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
