@@ -17,5 +17,7 @@ public class ACT_TEST_MultiTaskSpringTest  extends SpringAbstractTestBase{
 		long count=repositoryService.createProcessDefinitionQuery().count();
 		System.out.println(count);
 	}
+	
+	
 
 }

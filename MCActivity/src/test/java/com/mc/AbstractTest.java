@@ -1,6 +1,7 @@
 package com.mc;
 
 import org.activiti.engine.*;
+import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -60,4 +61,16 @@ public abstract class AbstractTest {
         formService = activitiRule.getFormService();
     }
 
+
+    public void showTaskInfo(Task task) {
+        System.out.println("#####################################");
+        // task.setAssignee("Kermit");
+        System.out.println("任务ID:" + task.getId());
+        System.out.println("任务的办理人:" + task.getAssignee());
+        System.out.println("任务名称:" + task.getName());
+        System.out.println("任务的创建时间:" + task.getCreateTime());
+        System.out.println("任务ID:" + task.getId());
+        System.out.println("流程实例ID:" + task.getProcessInstanceId());
+        System.out.println("#####################################");
+    }
 }

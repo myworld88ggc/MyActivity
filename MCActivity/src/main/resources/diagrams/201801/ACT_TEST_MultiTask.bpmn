@@ -3,6 +3,10 @@
   <process id="ACT_TEST_MultiTask" name="并行多实例测试流程" isExecutable="true">
     <startEvent id="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7"></startEvent>
     <userTask id="taskLeadersAudit" name="领导审批" activiti:assignee="${ leader }">
+      <extensionElements>
+        <activiti:executionListener event="end" class="com.oa.will.mclistener.MyExecutionListener"></activiti:executionListener>
+        <activiti:taskListener event="all" class="com.oa.will.mclistener.MyTaskLisener"></activiti:taskListener>
+      </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${ taskLeadersAudit }" activiti:elementVariable="leader"></multiInstanceLoopCharacteristics>
     </userTask>
     <sequenceFlow id="sid-8C30293F-30E2-44A5-AFA8-FCA7E2FF8C4A" sourceRef="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7" targetRef="taskLeadersAudit"></sequenceFlow>
