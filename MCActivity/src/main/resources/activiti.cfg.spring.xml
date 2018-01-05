@@ -22,7 +22,16 @@
 
     <property name="mailServerHost" value="mail.my-corp.com" />
     <property name="mailServerPort" value="5025" />
-  </bean>
+ 		<property name="beans">
+			<map>
+				<entry key="signComplete" value-ref="signComplete">
+				</entry>
+			</map>
+		</property>
+
+	</bean>
+
+	<bean id="signComplete" class="com.oa.will.sign.SignComplete"></bean>
 
     <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
         <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
