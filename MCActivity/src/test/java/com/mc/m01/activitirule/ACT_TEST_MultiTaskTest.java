@@ -1,6 +1,4 @@
-package com.mc.m01;
-
-import static org.junit.Assert.*;
+package com.mc.m01.activitirule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,10 +7,10 @@ import java.util.Map;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 
-import com.mc.AbstractTest;
+import com.mc.ActivitiRuleAbstractTest;
 
 
-public class ACT_TEST_MultiTaskTest extends AbstractTest {
+public class ACT_TEST_MultiTaskTest extends ActivitiRuleAbstractTest {
 
 //	@Test
 	public void deploy(){
@@ -86,11 +84,13 @@ public class ACT_TEST_MultiTaskTest extends AbstractTest {
             showTaskInfo(task);
         }
 
-         String hrTaskID = hrTasks.get(0).getId();
-        Map<String, Object> hrVariables = new HashMap<String, Object>();
-        hrVariables.put("approvalResult", "1");
-        taskService.complete(hrTaskID,hrVariables);
-        System.out.println("\n\n第2个审批完成\n\n");
+        if (hrTasks.size()>0) {
+                String hrTaskID = hrTasks.get(0).getId();
+                Map<String, Object> hrVariables = new HashMap<String, Object>();
+                hrVariables.put("approvalResult", "1");
+                taskService.complete(hrTaskID, hrVariables);
+                System.out.println("\n\n第2个审批完成\n\n");
+        }
 	}
 	
 	

@@ -13,7 +13,7 @@ import org.junit.Rule;
  *
  * @author henryyan
  */
-public abstract class AbstractTest {
+public abstract class ActivitiRuleAbstractTest {
 
     /**
      * 专门用于测试套件

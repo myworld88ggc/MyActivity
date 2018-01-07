@@ -1,6 +1,6 @@
-package com.oa.will.mclistener;
+package com.oa.will.mclistener.signtaskListener;
 
-import com.oa.will.oaconst.SignNodeSetting;
+import com.oa.will.oaconst.OaBPMSetting;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.delegate.Expression;
@@ -21,7 +21,7 @@ public class McSignExecutionListener implements ExecutionListener {
         //获取当前节点Id
         String currentTaskId = execution.getCurrentActivityId();
         //设定提前结束变量名称
-        String completionVariableName = currentTaskId.concat(SignNodeSetting.COMPLETION_SUFFIX);
+        String completionVariableName = currentTaskId.concat(OaBPMSetting.SignNodeSetting.COMPLETION_SUFFIX);
         System.out.println(currentTaskId);
         HashMap<String, Object> listVar = (HashMap<String, Object>) execution.getVariables();
         for (java.util.Map.Entry<String, Object> entry : listVar.entrySet()) {
@@ -41,17 +41,17 @@ public class McSignExecutionListener implements ExecutionListener {
         int nrOfCompletedInstances = 0;//已完成实例总数
 
 
-        if (listVariable.get(SignNodeSetting.NR_OF_ACTIVE_INSTANCES) != null) {
-            nrOfActiveInstances = Integer.parseInt(listVariable.get(SignNodeSetting.NR_OF_ACTIVE_INSTANCES).toString());
+        if (listVariable.get(OaBPMSetting.SignNodeSetting.NR_OF_ACTIVE_INSTANCES) != null) {
+            nrOfActiveInstances = Integer.parseInt(listVariable.get(OaBPMSetting.SignNodeSetting.NR_OF_ACTIVE_INSTANCES).toString());
         }
-        if (listVariable.get(SignNodeSetting.LOOP_COUNTER) != null) {
-            loopCounter = Integer.parseInt(listVariable.get(SignNodeSetting.LOOP_COUNTER).toString());
+        if (listVariable.get(OaBPMSetting.SignNodeSetting.LOOP_COUNTER) != null) {
+            loopCounter = Integer.parseInt(listVariable.get(OaBPMSetting.SignNodeSetting.LOOP_COUNTER).toString());
         }
-        if (listVariable.get(SignNodeSetting.NR_OF_INSTANCES) != null) {
-            nrOfInstances = Integer.parseInt(listVariable.get(SignNodeSetting.NR_OF_INSTANCES).toString());
+        if (listVariable.get(OaBPMSetting.SignNodeSetting.NR_OF_INSTANCES) != null) {
+            nrOfInstances = Integer.parseInt(listVariable.get(OaBPMSetting.SignNodeSetting.NR_OF_INSTANCES).toString());
         }
-        if (listVariable.get(SignNodeSetting.NR_OF_COMPLETED_INSTANCES) != null) {
-            nrOfCompletedInstances = Integer.parseInt(listVariable.get(SignNodeSetting.NR_OF_COMPLETED_INSTANCES).toString());
+        if (listVariable.get(OaBPMSetting.SignNodeSetting.NR_OF_COMPLETED_INSTANCES) != null) {
+            nrOfCompletedInstances = Integer.parseInt(listVariable.get(OaBPMSetting.SignNodeSetting.NR_OF_COMPLETED_INSTANCES).toString());
         }
 
         //第一个人审批，初始化统计数据
@@ -60,7 +60,7 @@ public class McSignExecutionListener implements ExecutionListener {
             execution.setVariable(completionVariableName, false);
 
 
-        } else if (nrOfActiveInstances > 0) {//还有剩余审批任务
+        } else if (nrOfActiveInstances > 0 || nrOfCompletedInstances<nrOfInstances) {//还有剩余审批任务
 
         } else {//所有人都已经审批
 

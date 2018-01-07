@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
-  <process id="ACT_TEST_MultiTask" name="并行多实例测试流程" isExecutable="true">
+  <process id="ACT_TEST_OneNotePass" name="并行多实例测试流程" isExecutable="true">
     <startEvent id="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7"></startEvent>
     <userTask id="taskLeadersAudit" name="领导审批" activiti:assignee="${ leader }">
       <extensionElements>
@@ -9,7 +9,7 @@
             <activiti:string><![CDATA[one_note_pass]]></activiti:string>
           </activiti:field>
           <activiti:field name="completeCondition">
-            <activiti:string><![CDATA[""]]></activiti:string>
+            <activiti:string><![CDATA[null]]></activiti:string>
           </activiti:field>
         </activiti:executionListener>
       </extensionElements>
@@ -23,8 +23,8 @@
       <terminateEventDefinition></terminateEventDefinition>
     </endEvent>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_ACT_TEST_MultiTask">
-    <bpmndi:BPMNPlane bpmnElement="ACT_TEST_MultiTask" id="BPMNPlane_ACT_TEST_MultiTask">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ACT_TEST_OneNotePass">
+    <bpmndi:BPMNPlane bpmnElement="ACT_TEST_OneNotePass" id="BPMNPlane_ACT_TEST_OneNotePass">
       <bpmndi:BPMNShape bpmnElement="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7" id="BPMNShape_sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7">
         <omgdc:Bounds height="35.0" width="35.0" x="101.0" y="127.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

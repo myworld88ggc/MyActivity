@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
-  <process id="ACT_TEST_MultiTask" name="并行多实例测试流程" isExecutable="true">
+  <process id="ACT_TEST_OneNoteReject" name="并行多实例测试流程" isExecutable="true">
     <startEvent id="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7"></startEvent>
     <userTask id="taskLeadersAudit" name="领导审批" activiti:assignee="${ leader }">
       <extensionElements>
         <activiti:executionListener event="end" class="com.oa.will.mclistener.signtaskListener.McSignExecutionSuperListener">
           <activiti:field name="completeType">
-            <activiti:string><![CDATA[one_note_pass]]></activiti:string>
+            <activiti:string><![CDATA[one_note_reject]]></activiti:string>
           </activiti:field>
           <activiti:field name="completeCondition">
-            <activiti:string><![CDATA[""]]></activiti:string>
+            <activiti:string><![CDATA[null]]></activiti:string>
           </activiti:field>
         </activiti:executionListener>
       </extensionElements>
@@ -18,13 +18,15 @@
       </multiInstanceLoopCharacteristics>
     </userTask>
     <sequenceFlow id="sid-8C30293F-30E2-44A5-AFA8-FCA7E2FF8C4A" sourceRef="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7" targetRef="taskLeadersAudit"></sequenceFlow>
-    <sequenceFlow id="sid-9894AC7A-8FDD-490B-AD52-2C97B365B345" sourceRef="taskLeadersAudit" targetRef="sid-F68711F4-47B6-42AD-A43B-093EB2F25B20"></sequenceFlow>
     <endEvent id="sid-F68711F4-47B6-42AD-A43B-093EB2F25B20">
       <terminateEventDefinition></terminateEventDefinition>
     </endEvent>
+    <userTask id="usertask1" name="CEO审批" activiti:assignee="${ ceo }"></userTask>
+    <sequenceFlow id="flow1" sourceRef="taskLeadersAudit" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="sid-F68711F4-47B6-42AD-A43B-093EB2F25B20"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_ACT_TEST_MultiTask">
-    <bpmndi:BPMNPlane bpmnElement="ACT_TEST_MultiTask" id="BPMNPlane_ACT_TEST_MultiTask">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ACT_TEST_OneNoteReject">
+    <bpmndi:BPMNPlane bpmnElement="ACT_TEST_OneNoteReject" id="BPMNPlane_ACT_TEST_OneNoteReject">
       <bpmndi:BPMNShape bpmnElement="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7" id="BPMNShape_sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7">
         <omgdc:Bounds height="35.0" width="35.0" x="101.0" y="127.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -34,14 +36,21 @@
       <bpmndi:BPMNShape bpmnElement="sid-F68711F4-47B6-42AD-A43B-093EB2F25B20" id="BPMNShape_sid-F68711F4-47B6-42AD-A43B-093EB2F25B20">
         <omgdc:Bounds height="35.0" width="35.0" x="330.0" y="127.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="162.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="sid-8C30293F-30E2-44A5-AFA8-FCA7E2FF8C4A" id="BPMNEdge_sid-8C30293F-30E2-44A5-AFA8-FCA7E2FF8C4A">
         <omgdi:waypoint x="136.0" y="144.0"></omgdi:waypoint>
         <omgdi:waypoint x="165.0" y="145.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-9894AC7A-8FDD-490B-AD52-2C97B365B345" id="BPMNEdge_sid-9894AC7A-8FDD-490B-AD52-2C97B365B345">
-        <omgdi:waypoint x="265.0" y="145.0"></omgdi:waypoint>
-        <omgdi:waypoint x="293.0" y="145.0"></omgdi:waypoint>
-        <omgdi:waypoint x="330.0" y="144.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="215.0" y="185.0"></omgdi:waypoint>
+        <omgdi:waypoint x="214.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="267.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="347.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="347.0" y="162.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
