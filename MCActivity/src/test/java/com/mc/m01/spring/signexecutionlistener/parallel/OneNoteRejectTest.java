@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 public class OneNoteRejectTest extends SpringAbstractTestBase {
 
@@ -25,7 +28,7 @@ public class OneNoteRejectTest extends SpringAbstractTestBase {
 
     @Test
 //    @org.activiti.engine.test.Deployment(resources = "diagrams/201801/ACT_TEST_OneNoteReject.bpmn")
-    public void testOneNoteReject() {
+    public void testOneNoteReject() throws InterruptedException {
 
         Map<String, Object> startVariable = new HashMap<String, Object>();
         List<String> listMultUserId = new ArrayList<String>();
@@ -40,27 +43,61 @@ public class OneNoteRejectTest extends SpringAbstractTestBase {
             showTaskInfo(task);
         }
 
-        // 第一个审批
-        String leaderTaskID = tasks.get(0).getId();
-        Map<String, Object> leaderVariables = new HashMap<String, Object>();
-        leaderVariables.put("approvalResult", "1");
-        taskService.complete(leaderTaskID, leaderVariables);
 
-        System.out.println("\n\n第一个审批完成\n\n");
-        // 第二个审批
-        List<Task> hrTasks = taskService.createTaskQuery().processInstanceId(procInstId).list();
-        for (Task task : hrTasks) {
-            showTaskInfo(task);
+        //模拟并发审批
+        if (false) {
+            int thread_num = tasks.size();
+
+            ExecutorService exec = Executors.newCachedThreadPool();
+            final Semaphore semp = new Semaphore(thread_num);
+            for (int index = 0; index < thread_num; index++) {
+                final int NO = index;
+                final String taskId = tasks.get(index).getId();
+                Runnable run = new Runnable() {
+                    public void run() {
+                        try {
+                            semp.acquire();
+                            //HttpClientTest.postLogin();
+                            System.out.println("Thread:" + NO);
+
+                            Map<String, Object> leaderVariables = new HashMap<String, Object>();
+                            leaderVariables.put("approvalResult", "2");
+                            taskService.complete(taskId, leaderVariables);
+
+                            semp.release();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                exec.execute(run);
+            }
+            Thread.sleep(5 * 1000L);
+            // exec.shutdown();
+            return;
+        }else {
+            // 第一个审批
+            String leaderTaskID = tasks.get(0).getId();
+            Map<String, Object> leaderVariables = new HashMap<String, Object>();
+            leaderVariables.put("approvalResult", "1");
+            taskService.complete(leaderTaskID, leaderVariables);
+
+            System.out.println("\n\n第一个审批完成\n\n");
+            // 第二个审批
+            List<Task> hrTasks = taskService.createTaskQuery().processInstanceId(procInstId).list();
+            for (Task task : hrTasks) {
+                showTaskInfo(task);
+            }
+
+            if (hrTasks.size() > 0) {
+                String hrTaskID = hrTasks.get(0).getId();
+                Map<String, Object> hrVariables = new HashMap<String, Object>();
+                hrVariables.put("approvalResult", "2");
+                taskService.complete(hrTaskID, hrVariables);
+                System.out.println("\n\n第2个审批完成\n\n");
+            }
         }
-
-        if (hrTasks.size() > 0) {
-            String hrTaskID = hrTasks.get(0).getId();
-            Map<String, Object> hrVariables = new HashMap<String, Object>();
-            hrVariables.put("approvalResult", "1");
-            taskService.complete(hrTaskID, hrVariables);
-            System.out.println("\n\n第2个审批完成\n\n");
-        }
-
 
         // 第3个审批
         List<Task> ceoTask = taskService.createTaskQuery().processInstanceId(procInstId).list();

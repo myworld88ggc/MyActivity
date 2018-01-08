@@ -22,11 +22,11 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow1" sourceRef="taskLeadersAudit" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow2" name="驳回" sourceRef="exclusivegateway1" targetRef="usertask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ taskLeadersAudit_Completion }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ taskLeadersAudit_Is_TurnBack }]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask2" name="CEO审批" activiti:assignee="${ ceo }"></userTask>
     <sequenceFlow id="flow3" name="通过" sourceRef="exclusivegateway1" targetRef="usertask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ !taskLeadersAudit_Completion }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ ! taskLeadersAudit_Is_TurnBack }]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow4" sourceRef="usertask2" targetRef="terminateendevent1"></sequenceFlow>
     <endEvent id="terminateendevent1" name="End">
@@ -100,7 +100,7 @@
         <omgdi:waypoint x="389.0" y="77.0"></omgdi:waypoint>
         <omgdi:waypoint x="390.0" y="190.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="393.0" y="130.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="48.0" x="393.0" y="130.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">

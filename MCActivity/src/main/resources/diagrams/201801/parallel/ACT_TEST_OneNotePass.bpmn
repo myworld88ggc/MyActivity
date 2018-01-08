@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
-  <process id="ACT_TEST_OneNotePass" name="并行多实例测试流程" isExecutable="true">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/processdef" xmlns:yaoqiang="http://bpmn.sourceforge.net" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef" exporter="Yaoqiang BPMN Editor" exporterVersion="5.3" id="_1515392466073" name="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
+  <process id="ACT_TEST_OneNotePass" name="并行多实例测试流程" isExecutable="true" isClosed="false" processType="None">
+    <extensionElements>
+      <yaoqiang:description xmlns:yaoqiang="http://bpmn.sourceforge.net"></yaoqiang:description>
+      <yaoqiang:pageFormat xmlns:yaoqiang="http://bpmn.sourceforge.net" height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724"></yaoqiang:pageFormat>
+      <yaoqiang:page xmlns:yaoqiang="http://bpmn.sourceforge.net" background="#FFFFFF" horizontalCount="1" verticalCount="1"></yaoqiang:page>
+    </extensionElements>
     <startEvent id="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7"></startEvent>
-    <userTask id="taskLeadersAudit" name="领导审批" activiti:assignee="${ leader }">
+    <userTask id="taskLeadersAudit" name="领导审批" activiti:assignee="${ leader }" completionQuantity="1" implementation="##unspecified" isForCompensation="false" startQuantity="1">
       <extensionElements>
         <activiti:executionListener event="end" class="com.oa.will.mclistener.signtaskListener.McSignExecutionSuperListener">
           <activiti:field name="completeType">
@@ -32,7 +37,7 @@
         <omgdc:Bounds height="80.0" width="100.0" x="165.0" y="105.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-F68711F4-47B6-42AD-A43B-093EB2F25B20" id="BPMNShape_sid-F68711F4-47B6-42AD-A43B-093EB2F25B20">
-        <omgdc:Bounds height="35.0" width="35.0" x="330.0" y="127.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="350.0" y="127.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="sid-8C30293F-30E2-44A5-AFA8-FCA7E2FF8C4A" id="BPMNEdge_sid-8C30293F-30E2-44A5-AFA8-FCA7E2FF8C4A">
         <omgdi:waypoint x="136.0" y="144.0"></omgdi:waypoint>
@@ -41,7 +46,7 @@
       <bpmndi:BPMNEdge bpmnElement="sid-9894AC7A-8FDD-490B-AD52-2C97B365B345" id="BPMNEdge_sid-9894AC7A-8FDD-490B-AD52-2C97B365B345">
         <omgdi:waypoint x="265.0" y="145.0"></omgdi:waypoint>
         <omgdi:waypoint x="293.0" y="145.0"></omgdi:waypoint>
-        <omgdi:waypoint x="330.0" y="144.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="144.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

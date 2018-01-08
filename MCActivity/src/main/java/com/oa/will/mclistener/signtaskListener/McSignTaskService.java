@@ -71,6 +71,7 @@ public class McSignTaskService {
     public static boolean getCompletionVariableValue(DelegateExecution execution) {
         Object objResult = execution.getVariable(getCompletionVariableName(execution));
         if (objResult == null) {
+//            setCompletionVariableValue(execution,false);
             return false;
         } else {
             return Boolean.parseBoolean(objResult.toString());
@@ -91,9 +92,10 @@ public class McSignTaskService {
      *
      * @param execution
      */
-    public static int getApprovalOKCount(DelegateExecution execution) {
+    public  static int getApprovalOKCount(DelegateExecution execution) {
         Object objResult = execution.getVariable(getApprovalOkCountVariableName(execution));
         if (objResult == null) {
+//            setApprovalOKCountValue(execution,0);
             return 0;
         } else {
             return Integer.parseInt(objResult.toString());
@@ -127,9 +129,10 @@ public class McSignTaskService {
      *
      * @param execution
      */
-    public static boolean getSignResultIsTurnBack(DelegateExecution execution) {
+    public static boolean getSignResultIsTurnBackVariableValue(DelegateExecution execution) {
         Object objResult = execution.getVariable(getSignResultIsTurnBackVariableName(execution));
         if (objResult == null) {
+//            execution.setVariable(getSignResultIsTurnBackVariableName(execution), false);
             return false;
         } else {
             return Boolean.parseBoolean(objResult.toString());
@@ -141,7 +144,7 @@ public class McSignTaskService {
      * @param execution
      * @param isTurnback
      */
-    public static void setSignResultIsTurnBack(DelegateExecution execution, boolean isTurnback) {
+    public static void setSignResultIsTurnBackVariableValue(DelegateExecution execution, boolean isTurnback) {
         execution.setVariable(getSignResultIsTurnBackVariableName(execution), isTurnback);
     }
 
@@ -153,6 +156,7 @@ public class McSignTaskService {
     public static int getApprovalRejectCount(DelegateExecution execution) {
         Object objResult = execution.getVariable(getApprovalRejectCountVariableName(execution));
         if (objResult == null) {
+//            setApprovalRejectCountValue(execution,0);
             return 0;
         } else {
             return Integer.parseInt(objResult.toString());

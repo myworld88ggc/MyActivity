@@ -31,6 +31,11 @@ public class McSignExecutionSuperListener implements ExecutionListener {
                 return;
             }
         }
+        //如果是最后一次SIGNTask最后一次触发，则直接返回
+        boolean isNullLoopCounter = McSignTaskService.isNullLoopCounter(execution);
+        if (isNullLoopCounter) {
+            return;
+        }
 
         //若流程删除则返回
         ExecutionEntity processInstance = (ExecutionEntity) execution.getEngineServices().getRuntimeService().createProcessInstanceQuery().processInstanceId(execution.getProcessInstanceId()).singleResult();
