@@ -1,12 +1,10 @@
 package com.oa.will.mclistener.signtaskListener;
 
-import org.activiti.engine.ProcessEngine;
+import com.oa.will.service.McSignTaskService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 

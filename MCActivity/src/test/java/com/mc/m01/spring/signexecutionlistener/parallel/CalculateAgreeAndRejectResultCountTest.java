@@ -43,35 +43,8 @@ public class CalculateAgreeAndRejectResultCountTest extends SpringAbstractTestBa
             showTaskInfo(task);
         }
         //模拟并发审批
-        if (true) {
-            int thread_num = tasks.size();
-            ExecutorService exec = Executors.newCachedThreadPool();
-            final Semaphore semp = new Semaphore(thread_num);
-            for (int index = 0; index < thread_num; index++) {
-                final int NO = index;
-                final String taskId = tasks.get(index).getId();
-                Runnable run = new Runnable() {
-                    public void run() {
-                        try {
-                            semp.acquire();
-                            //HttpClientTest.postLogin();
-                            System.out.println("Thread:" + NO);
-
-                            Map<String, Object> leaderVariables = new HashMap<String, Object>();
-                            leaderVariables.put("approvalResult", "2");
-                            taskService.complete(taskId, leaderVariables);
-
-                            semp.release();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-                exec.execute(run);
-            }
-            Thread.sleep(5 * 1000L);
-            // exec.shutdown();
+        if (false) {
+            asyncApprovalListTask(tasks,"2");
             return;
         } else {
 

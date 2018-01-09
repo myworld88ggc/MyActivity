@@ -1,4 +1,4 @@
-package com.mc.m01.spring.signexecutionlistener.parallel;
+package com.mc.m01.spring.signexecutionlistener.sequence;
 
 import com.mc.SpringAbstractTestBase;
 import org.activiti.engine.history.HistoricProcessInstance;
@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
 
-public class PercentPassIfNotRejectTest extends SpringAbstractTestBase {
+public class Sequence_PercentPassIfNotRejectTest extends SpringAbstractTestBase {
 
 
     @Test
@@ -21,11 +18,10 @@ public class PercentPassIfNotRejectTest extends SpringAbstractTestBase {
         // TODO Auto-generated method stub
         // long count=repositoryService.createProcessDefinitionQuery().count();
         // System.out.println(count);
-		repositoryService.createDeployment().addClasspathResource("diagrams/201801/parallel/ACT_TEST_PercentPassIfNotReject.bpmn").deploy();
+		repositoryService.createDeployment().addClasspathResource("diagrams/201801/sequence/ACT_TEST_Sequence_PercentPassIfNotReject.bpmn").deploy();
     }
 
     @Test
-//    @org.activiti.engine.test.Deployment(resources = "diagrams/201801/ACT_TEST_CalculateAgreeAndRejectResultCount.bpmn")
     public void testCalculateAgreeAndRejectResultCount() throws InterruptedException {
 
         Map<String, Object> startVariable = new HashMap<String, Object>();
@@ -35,7 +31,7 @@ public class PercentPassIfNotRejectTest extends SpringAbstractTestBase {
         startVariable.put("taskLeadersAudit", listMultUserId);
         startVariable.put("starter", "51034100");
         startVariable.put("ceo", "51034200");
-        String procInstId = runtimeService.startProcessInstanceByKey("ACT_TEST_PercentPassIfNotReject", startVariable).getId();
+        String procInstId = runtimeService.startProcessInstanceByKey("ACT_TEST_Sequence_PercentPassIfNotReject", startVariable).getId();
         System.out.println(procInstId);
         List<Task> tasks = taskService.createTaskQuery().processInstanceId(procInstId).list();
         for (Task task : tasks) {
@@ -43,9 +39,9 @@ public class PercentPassIfNotRejectTest extends SpringAbstractTestBase {
         }
 
         //模拟并发审批
-        if (false) {
-            asyncApprovalListTask(tasks,"2");
-            return;
+        if (true) {
+            asyncApprovalListTask(tasks,"1");
+//         return;
         }else {
             // 会签第一个审批
             System.out.println("会签审批");

@@ -44,14 +44,12 @@ public final class OaBPMSetting {
 
 
     public final class ApprovalResultSetting {
-
         //系统会签变量
         public static final String OK = "1";
         public static final String REJECT = "2";
         public static final String TRUNBACK = "3";
 
     }
-
 }
 
 

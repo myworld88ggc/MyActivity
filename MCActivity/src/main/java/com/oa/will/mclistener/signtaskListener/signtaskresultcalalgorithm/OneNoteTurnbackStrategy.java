@@ -1,6 +1,6 @@
 package com.oa.will.mclistener.signtaskListener.signtaskresultcalalgorithm;
 
-import com.oa.will.mclistener.signtaskListener.McSignTaskService;
+import com.oa.will.service.McSignTaskService;
 import com.oa.will.oaconst.OaBPMSetting;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -23,10 +23,6 @@ public class OneNoteTurnbackStrategy extends SignResultCalBaseStrategy {
 //        int nrOfActiveInstances = McSignTaskService.getNrOfActiveInstances(execution);
 //        //循环计数器
 //        int loopCounter = McSignTaskService.getLoopCounter(execution);
-        boolean isNullLoopCounter = McSignTaskService.isNullLoopCounter(execution);
-        if (isNullLoopCounter) {
-            return;
-        }
 
         //实例总数
         int nrOfInstances = McSignTaskService.getNrOfInstances(execution);

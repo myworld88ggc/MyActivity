@@ -1,6 +1,6 @@
 package com.oa.will.mclistener.signtaskListener.signtaskresultcalalgorithm;
 
-import com.oa.will.mclistener.signtaskListener.McSignTaskService;
+import com.oa.will.service.McSignTaskService;
 import com.oa.will.oaconst.OaBPMSetting;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;

@@ -15,6 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+
 /**
  * Created by gao.guangcai on 2017-11-23.
  */
@@ -49,5 +56,37 @@ public abstract class SpringAbstractTestBase {
 		System.out.println("任务ID:" + task.getId());
 		System.out.println("流程实例ID:" + task.getProcessInstanceId());
 		System.out.println("#####################################");
+	}
+
+
+	public void asyncApprovalListTask(List<Task> tasks, String approvalResult) throws InterruptedException {
+		int thread_num = tasks.size();
+
+		ExecutorService exec = Executors.newCachedThreadPool();
+		final Semaphore semp = new Semaphore(thread_num);
+		for (int index = 0; index < thread_num; index++) {
+			final int NO = index;
+			final String taskId = tasks.get(index).getId();
+			Runnable run = new Runnable() {
+				public void run() {
+					try {
+						semp.acquire();
+						//HttpClientTest.postLogin();
+						System.out.println("Thread:" + NO);
+
+						Map<String, Object> leaderVariables = new HashMap<String, Object>();
+						leaderVariables.put("approvalResult", approvalResult);
+						taskService.complete(taskId, leaderVariables);
+
+						semp.release();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			};
+
+			exec.execute(run);
+		}
+		Thread.sleep(5 * 1000L);
 	}
 }
