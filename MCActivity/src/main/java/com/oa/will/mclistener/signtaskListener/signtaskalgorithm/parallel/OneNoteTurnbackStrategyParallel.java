@@ -1,4 +1,4 @@
-package com.oa.will.mclistener.signtaskListener.signtaskresultcalalgorithm;
+package com.oa.will.mclistener.signtaskListener.signtaskalgorithm.parallel;
 
 import com.oa.will.service.McSignTaskService;
 import com.oa.will.oaconst.OaBPMSetting;
@@ -6,10 +6,10 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 
 /**
- * 会签--->一票否决
+ * 会签--->一票驳回
  * Created by Will on 2018/01/06.
  */
-public class OneNoteRejectStrategy extends SignResultCalBaseStrategy {
+public class OneNoteTurnbackStrategyParallel extends SignParallelResultCalBaseStrategy {
 
 
     @Override
@@ -18,8 +18,8 @@ public class OneNoteRejectStrategy extends SignResultCalBaseStrategy {
         //获取审批结果
         String strApprovalResult = McSignTaskService.getSignTaskApprovalResultValue(execution);
 
-//        //计算会签结果----获取循环计数器的声明与获取
-//        //活动的实例数量
+        //计算会签结果----获取循环计数器的声明与获取
+        //活动的实例数量
 //        int nrOfActiveInstances = McSignTaskService.getNrOfActiveInstances(execution);
 //        //循环计数器
 //        int loopCounter = McSignTaskService.getLoopCounter(execution);
@@ -30,19 +30,23 @@ public class OneNoteRejectStrategy extends SignResultCalBaseStrategy {
         int nrOfCompletedInstances = McSignTaskService.getNrOfCompletedInstances(execution);
 
         //第一个审批，初始化节点变量
-        if (nrOfCompletedInstances == 0) {
-            McSignTaskService.setCompletionVariableValue(execution, false);
+        if (nrOfCompletedInstances==0){
+            McSignTaskService.setCompletionVariableValue(execution,false);
+            McSignTaskService.setSignResultIsTurnBackVariableValue(execution,false);
         }
         //判断当前会签节点是否通过
         boolean isCompletion = McSignTaskService.getCompletionVariableValue(execution);
+//        boolean isTurnBack=McSignTaskService.getSignResultIsTurnBackVariableValue(execution);
         if (isCompletion) {
             return;
         }
 
         //会签没有结束
         if (nrOfInstances > nrOfCompletedInstances) {
-            if (strApprovalResult.equals(OaBPMSetting.ApprovalResultSetting.REJECT)) {
-                McSignTaskService.deleteProcessInstance(execution);
+            if (strApprovalResult.equals(OaBPMSetting.ApprovalResultSetting.TRUNBACK)) {
+                //设置通过变量为true
+                McSignTaskService.setCompletionVariableValue(execution, true);
+                McSignTaskService.setSignResultIsTurnBackVariableValue(execution,true);
             } else {
                 McSignTaskService.setCompletionVariableValue(execution, false);
             }

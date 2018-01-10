@@ -34,6 +34,12 @@
             </map>
         </property>
 
+        <property name="eventListeners">
+            <list>
+                <bean class="com.oa.will.mclistener.global.GlobalActEventListener"/>
+            </list>
+        </property>
+
     </bean>
 
     <bean id="signComplete" class="com.oa.will.sign.SignComplete"></bean>

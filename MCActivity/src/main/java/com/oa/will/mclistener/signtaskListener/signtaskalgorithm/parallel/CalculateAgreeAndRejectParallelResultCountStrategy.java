@@ -1,4 +1,4 @@
-package com.oa.will.mclistener.signtaskListener.signtaskresultcalalgorithm;
+package com.oa.will.mclistener.signtaskListener.signtaskalgorithm.parallel;
 
 import com.oa.will.service.McSignTaskService;
 import com.oa.will.oaconst.OaBPMSetting;
@@ -6,14 +6,15 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 
 /**
- * 会签--->一票通过
+ * 会签--->计算 同意和拒绝 数量
  * Created by Will on 2018/01/06.
  */
-public class OneNotePassStrategy extends SignResultCalBaseStrategy {
+public class CalculateAgreeAndRejectParallelResultCountStrategy extends SignParallelResultCalBaseStrategy {
 
 
     @Override
     public void signResultCalculate(DelegateExecution execution, Expression completeCondition) {
+
 
         //获取审批结果
         String strApprovalResult = McSignTaskService.getSignTaskApprovalResultValue(execution);
@@ -29,31 +30,26 @@ public class OneNotePassStrategy extends SignResultCalBaseStrategy {
         //已完成实例总数
         int nrOfCompletedInstances = McSignTaskService.getNrOfCompletedInstances(execution);
 
+
         //第一个审批，初始化节点变量
-        if (nrOfCompletedInstances==0){
-            McSignTaskService.setCompletionVariableValue(execution,false);
+        if (nrOfCompletedInstances == 0) {
+            McSignTaskService.setCompletionVariableValue(execution, false);
+            McSignTaskService.setApprovalOKCountValue(execution, 0);
+            McSignTaskService.setApprovalRejectCountValue(execution, 0);
         }
 
-        //判断当前会签节点是否通过
-        boolean isCompletion = McSignTaskService.getCompletionVariableValue(execution);
-        if (isCompletion) {
-            return;
-        }
 
+        int approvalOkAccount = McSignTaskService.getApprovalOKCount(execution);
+        int approvalRejectAccount = McSignTaskService.getApprovalRejectCount(execution);
         //会签没有结束
         if (nrOfInstances > nrOfCompletedInstances) {
+            //会签结果累加
             if (strApprovalResult.equalsIgnoreCase(OaBPMSetting.ApprovalResultSetting.OK)) {
-                //设置通过变量为true
-                McSignTaskService.setCompletionVariableValue(execution, true);
+                McSignTaskService.setApprovalOKCountValue(execution, ++approvalOkAccount);
             } else {
-                McSignTaskService.setCompletionVariableValue(execution, false);
-                if (nrOfInstances==nrOfCompletedInstances+1){
-                    McSignTaskService.deleteProcessInstance(execution);
-                }
+                McSignTaskService.setApprovalRejectCountValue(execution, ++approvalRejectAccount);
             }
         }
 
-
     }
-
 }

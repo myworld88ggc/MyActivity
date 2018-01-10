@@ -1,4 +1,4 @@
-package com.oa.will.mclistener.signtaskListener.signtaskresultcalalgorithm;
+package com.oa.will.mclistener.signtaskListener.signtaskalgorithm.parallel;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -7,7 +7,7 @@ import org.activiti.engine.delegate.Expression;
  * 会签结果计算抽象类
  * Created by Will on 2018/01/06.
  */
-public abstract class SignResultCalBaseStrategy {
+public abstract class SignParallelResultCalBaseStrategy {
 
 
     /**

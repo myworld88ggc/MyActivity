@@ -1,4 +1,4 @@
-package com.oa.will.mclistener.signtaskListener;
+package com.oa.will.service;
 
 import com.oa.will.oaconst.OaBPMSetting;
 import org.activiti.engine.RuntimeService;

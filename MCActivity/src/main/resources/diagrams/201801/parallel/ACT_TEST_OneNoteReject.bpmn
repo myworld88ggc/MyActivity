@@ -4,7 +4,7 @@
     <startEvent id="sid-691327D2-DE48-49C9-83D4-9B9D4DF8B6D7"></startEvent>
     <userTask id="taskLeadersAudit" name="领导审批" activiti:assignee="${ leader }">
       <extensionElements>
-        <activiti:executionListener event="end" class="com.oa.will.mclistener.signtaskListener.McSignExecutionSuperListener">
+        <activiti:executionListener event="end" class="com.oa.will.mclistener.signtaskListener.McSignParallelExecutionSuperListener">
           <activiti:field name="completeType">
             <activiti:string><![CDATA[one_note_reject]]></activiti:string>
           </activiti:field>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
-  <process id="ACT_TEST_CalculateAgreeAndRejectResultCount" name="并行多实例测试流程" isExecutable="true">
+  <process id="ACT_TEST_Sequence_OneNoteTurnBack" name="并行多实例测试流程" isExecutable="true">
     <startEvent id="startevent1" name="开始"></startEvent>
     <userTask id="taskLeadersAudit" name="领导审批" activiti:assignee="${ leader }">
       <extensionElements>
-        <activiti:executionListener event="end" class="com.oa.will.mclistener.signtaskListener.McSignParallelExecutionSuperListener">
+        <activiti:taskListener event="complete" class="com.oa.will.mclistener.signtaskListener.SignTaskCompletedListener">
           <activiti:field name="completeType">
-            <activiti:string><![CDATA[calculate_agree_and_reject_count]]></activiti:string>
+            <activiti:string><![CDATA[one_note_turnback]]></activiti:string>
           </activiti:field>
           <activiti:field name="completeCondition">
             <activiti:string><![CDATA[null]]></activiti:string>
           </activiti:field>
-        </activiti:executionListener>
+        </activiti:taskListener>
       </extensionElements>
-      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${ taskLeadersAudit }" activiti:elementVariable="leader">
+      <multiInstanceLoopCharacteristics isSequential="true" activiti:collection="${ taskLeadersAudit }" activiti:elementVariable="leader">
         <completionCondition>${ taskLeadersAudit_Completion }</completionCondition>
       </multiInstanceLoopCharacteristics>
     </userTask>
@@ -22,11 +22,11 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow1" sourceRef="taskLeadersAudit" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow2" name="驳回" sourceRef="exclusivegateway1" targetRef="usertask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ ! (taskLeadersAudit_Ok_Account >= taskLeadersAudit_Reject_Account) }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ taskLeadersAudit_Is_TurnBack }]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask2" name="CEO审批" activiti:assignee="${ ceo }"></userTask>
     <sequenceFlow id="flow3" name="通过" sourceRef="exclusivegateway1" targetRef="usertask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ taskLeadersAudit_Ok_Account >= taskLeadersAudit_Reject_Account }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ ! taskLeadersAudit_Is_TurnBack }]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow4" sourceRef="usertask2" targetRef="terminateendevent1"></sequenceFlow>
     <endEvent id="terminateendevent1" name="End">
@@ -43,8 +43,8 @@
     </textAnnotation>
     <association id="association2" sourceRef="terminateendevent1" targetRef="textannotation2"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_ACT_TEST_CalculateAgreeAndRejectResultCount">
-    <bpmndi:BPMNPlane bpmnElement="ACT_TEST_CalculateAgreeAndRejectResultCount" id="BPMNPlane_ACT_TEST_CalculateAgreeAndRejectResultCount">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ACT_TEST_Sequence_OneNoteTurnBack">
+    <bpmndi:BPMNPlane bpmnElement="ACT_TEST_Sequence_OneNoteTurnBack" id="BPMNPlane_ACT_TEST_Sequence_OneNoteTurnBack">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="250.0" y="212.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -81,14 +81,14 @@
         <omgdi:waypoint x="505.0" y="211.0"></omgdi:waypoint>
         <omgdi:waypoint x="505.0" y="105.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="504.0" y="161.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="24.0" x="504.0" y="161.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="525.0" y="231.0"></omgdi:waypoint>
         <omgdi:waypoint x="603.0" y="231.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="549.0" y="231.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="24.0" x="549.0" y="231.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">

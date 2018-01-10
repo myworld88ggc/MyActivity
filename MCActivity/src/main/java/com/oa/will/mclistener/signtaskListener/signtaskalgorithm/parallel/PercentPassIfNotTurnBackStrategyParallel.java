@@ -1,4 +1,4 @@
-package com.oa.will.mclistener.signtaskListener.signtaskresultcalalgorithm;
+package com.oa.will.mclistener.signtaskListener.signtaskalgorithm.parallel;
 
 import com.oa.will.service.McSignTaskService;
 import com.oa.will.oaconst.OaBPMSetting;
@@ -6,11 +6,10 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 
 /**
- * 会签---> 百分比通过
+ * 会签---> 百分比拒绝
  * Created by Will on 2018/01/06.
  */
-public class PercentPassIfNotRejectStrategy extends SignResultCalBaseStrategy {
-
+public class PercentPassIfNotTurnBackStrategyParallel extends SignParallelResultCalBaseStrategy {
 
     @Override
     public void signResultCalculate(DelegateExecution execution, Expression completeCondition) throws Exception {
@@ -18,7 +17,8 @@ public class PercentPassIfNotRejectStrategy extends SignResultCalBaseStrategy {
         //获取审批结果
         String strApprovalResult = McSignTaskService.getSignTaskApprovalResultValue(execution);
 
- //        //计算会签结果----获取循环计数器的声明与获取
+
+//        //计算会签结果----获取循环计数器的声明与获取
 //        //活动的实例数量
 //        int nrOfActiveInstances = McSignTaskService.getNrOfActiveInstances(execution);
 //        //循环计数器
@@ -28,6 +28,7 @@ public class PercentPassIfNotRejectStrategy extends SignResultCalBaseStrategy {
         int nrOfInstances = McSignTaskService.getNrOfInstances(execution);
         //已完成实例总数
         int nrOfCompletedInstances = McSignTaskService.getNrOfCompletedInstances(execution);
+
 
         //判断通过百分比是否符合要求
         double completionConditionValue = 0d;
@@ -40,18 +41,20 @@ public class PercentPassIfNotRejectStrategy extends SignResultCalBaseStrategy {
             throw ex;
         }
 
-        //第一个审批，初始化节点变量
+        //会签第一人审批
         if (nrOfCompletedInstances == 0) {
+            //设置通过变量为false
             McSignTaskService.setCompletionVariableValue(execution, false);
+            McSignTaskService.setSignResultIsTurnBackVariableValue(execution, false);
             McSignTaskService.setApprovalOKCountValue(execution, 0);
             McSignTaskService.setApprovalRejectCountValue(execution, 0);
         }
+        int   approvalOkAccount = McSignTaskService.getApprovalOKCount(execution);
+        int   approvalRejectAccount = McSignTaskService.getApprovalRejectCount(execution);
 
-        int approvalOkAccount = McSignTaskService.getApprovalOKCount(execution);
-        int approvalRejectAccount = McSignTaskService.getApprovalRejectCount(execution);
 
         //会签没有结束
-        if (nrOfInstances > nrOfCompletedInstances) {
+        if (nrOfInstances > nrOfCompletedInstances ) {
             //会签结果累加
             if (strApprovalResult.equalsIgnoreCase(OaBPMSetting.ApprovalResultSetting.OK)) {
                 ++approvalOkAccount;
@@ -61,18 +64,21 @@ public class PercentPassIfNotRejectStrategy extends SignResultCalBaseStrategy {
                 McSignTaskService.setApprovalRejectCountValue(execution, approvalRejectAccount);
             }
 
+
+
             //计算是否满足通过条件
-            System.out.println("agree: " + (approvalOkAccount * 100.0 / nrOfInstances));
-            System.out.println("reject:" + (approvalRejectAccount * 100.0 / nrOfInstances));
-            System.out.println("max reject percent" + (100.0 - completionConditionValue));
+            System.out.println("agree: "+(approvalOkAccount * 100.0 / nrOfInstances));
+            System.out.println("reject:"+(approvalRejectAccount * 100.0 / nrOfInstances));
+            System.out.println("max reject percent"+(100.0 - completionConditionValue));
             //通过
             if ((approvalOkAccount * 100.0 / nrOfInstances) >= completionConditionValue) {
+                McSignTaskService.setSignResultIsTurnBackVariableValue(execution, false);
                 McSignTaskService.setCompletionVariableValue(execution, true);
             } else if ((approvalRejectAccount * 100.0 / nrOfInstances) > (100.0 - completionConditionValue)) {//不通过
-                McSignTaskService.deleteProcessInstance(execution);
+                McSignTaskService.setSignResultIsTurnBackVariableValue(execution, true);
+                McSignTaskService.setCompletionVariableValue(execution, true);
             }
 
         }
     }
-
 }

@@ -1,5 +1,6 @@
 package com.oa.will.mclistener.signtaskListener;
 
+import com.oa.will.mclistener.signtaskListener.signtaskalgorithm.SignParallelResultCalContext;
 import com.oa.will.service.McSignTaskService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 /**
  * 会签结果统计监听类
  */
-public class McSignExecutionSuperListener implements ExecutionListener {
+public class McSignParallelExecutionSuperListener implements ExecutionListener {
 
     private Expression completeType;
     private Expression completeCondition;
@@ -48,8 +49,8 @@ public class McSignExecutionSuperListener implements ExecutionListener {
         }
 
         //根据不同的会签策略，调用不同的会签算法
-        SignResultCalContext signResultCalContext=new SignResultCalContext(completeType.getValue(execution).toString(), execution,completeCondition);
-        signResultCalContext.calSignResult();
+        SignParallelResultCalContext signParallelResultCalContext =new SignParallelResultCalContext(completeType.getValue(execution).toString(), execution,completeCondition);
+        signParallelResultCalContext.calSignResult();
     }
 
 
